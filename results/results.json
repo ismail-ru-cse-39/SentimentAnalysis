@@ -1,0 +1,1046 @@
+{
+  "dataset": {
+    "full_train_positive": 399000,
+    "full_train_negative": 399000,
+    "full_test_positive": 1000,
+    "full_test_negative": 998,
+    "sample_per_class": 50000,
+    "sample_total": 100000,
+    "train_fold": 90000,
+    "validation_fold": 10000,
+    "sample_length": {
+      "n": 100000,
+      "empty_after_cleaning": 206,
+      "mean_tokens": 12.99402,
+      "median_tokens": 12.0,
+      "p95_tokens": 26.0
+    },
+    "test_length": {
+      "n": 1998,
+      "empty_after_cleaning": 6,
+      "mean_tokens": 12.972972972972974,
+      "median_tokens": 12.0,
+      "p95_tokens": 26.0
+    },
+    "preprocessing": [
+      "lowercase",
+      "strip surrounding quotation marks",
+      "remove URLs and @mentions",
+      "keep hashtag words without the # character",
+      "expand common contractions so negation is preserved",
+      "remove punctuation and digits",
+      "do not remove stopwords, because negation words carry sentiment"
+    ],
+    "vectorizer": {
+      "max_features": 20000,
+      "ngram_range": [
+        1,
+        2
+      ],
+      "min_df": 2
+    },
+    "classifier": "L2 logistic regression (liblinear), C chosen on validation macro F1",
+    "c_grid": [
+      0.1,
+      1.0,
+      4.0
+    ],
+    "embeddings": {
+      "algorithm": "skip-gram Word2Vec",
+      "dim": 100,
+      "window": 5,
+      "min_count": 2,
+      "epochs": 5,
+      "pooling": "mean of in-vocabulary word vectors",
+      "scaler": "StandardScaler fit on the training fold only"
+    },
+    "seed": 42,
+    "smoke": false
+  },
+  "pipelines": [
+    {
+      "accuracy": 0.5975975975975976,
+      "macro_f1": 0.5307732932027219,
+      "precision_neg": 0.8943089430894309,
+      "recall_neg": 0.22044088176352705,
+      "f1_neg": 0.3536977491961415,
+      "precision_pos": 0.5559360730593608,
+      "recall_pos": 0.974,
+      "f1_pos": 0.7078488372093024,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          220,
+          778
+        ],
+        [
+          26,
+          974
+        ]
+      ],
+      "pipeline": "lexicon",
+      "best_C": "",
+      "val_macro_f1": "",
+      "ties_predicted_positive": 1215
+    },
+    {
+      "accuracy": 0.7987987987987988,
+      "macro_f1": 0.7987259933442925,
+      "precision_neg": 0.8097713097713097,
+      "recall_neg": 0.7805611222444889,
+      "f1_neg": 0.7948979591836735,
+      "precision_pos": 0.7886100386100386,
+      "recall_pos": 0.817,
+      "f1_pos": 0.8025540275049116,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          779,
+          219
+        ],
+        [
+          183,
+          817
+        ]
+      ],
+      "pipeline": "bow",
+      "description": "Bag-of-words counts, unigrams and bigrams",
+      "best_C": 0.1,
+      "val_macro_f1": 0.7848023669858779,
+      "n_features": 20000
+    },
+    {
+      "accuracy": 0.8003003003003003,
+      "macro_f1": 0.8002990496693494,
+      "precision_neg": 0.8010050251256281,
+      "recall_neg": 0.7985971943887775,
+      "f1_neg": 0.7997992975413949,
+      "precision_pos": 0.7996011964107677,
+      "recall_pos": 0.802,
+      "f1_pos": 0.800798801797304,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          797,
+          201
+        ],
+        [
+          198,
+          802
+        ]
+      ],
+      "pipeline": "tf",
+      "description": "L2-normalised term frequency, IDF disabled",
+      "best_C": 4.0,
+      "val_macro_f1": 0.7925880198840285,
+      "n_features": 20000
+    },
+    {
+      "accuracy": 0.8058058058058059,
+      "macro_f1": 0.8058040545415194,
+      "precision_neg": 0.806841046277666,
+      "recall_neg": 0.8036072144288577,
+      "f1_neg": 0.8052208835341366,
+      "precision_pos": 0.8047808764940239,
+      "recall_pos": 0.808,
+      "f1_pos": 0.8063872255489022,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          802,
+          196
+        ],
+        [
+          192,
+          808
+        ]
+      ],
+      "pipeline": "idf",
+      "description": "Binary term presence multiplied by smoothed IDF",
+      "best_C": 1.0,
+      "val_macro_f1": 0.7922945975824831,
+      "n_features": 20000
+    },
+    {
+      "accuracy": 0.8013013013013013,
+      "macro_f1": 0.8012952784437821,
+      "precision_neg": 0.8038422649140546,
+      "recall_neg": 0.7965931863727455,
+      "f1_neg": 0.8002013085052844,
+      "precision_pos": 0.798810703666997,
+      "recall_pos": 0.806,
+      "f1_pos": 0.8023892483822798,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          795,
+          203
+        ],
+        [
+          194,
+          806
+        ]
+      ],
+      "pipeline": "tfidf",
+      "description": "Sublinear TF multiplied by smoothed IDF, then L2-normalised",
+      "best_C": 1.0,
+      "val_macro_f1": 0.7904961262733748,
+      "n_features": 20000,
+      "idf_extremes": {
+        "highest_idf": [
+          {
+            "term": "butt butt",
+            "idf": 11.414323176252118
+          },
+          {
+            "term": "diversity diversity",
+            "idf": 11.414323176252118
+          },
+          {
+            "term": "alltimelow",
+            "idf": 11.414323176252118
+          },
+          {
+            "term": "snow snow",
+            "idf": 11.414323176252118
+          },
+          {
+            "term": "ontd ontd",
+            "idf": 11.414323176252118
+          },
+          {
+            "term": "shake shake",
+            "idf": 11.126641103800338
+          },
+          {
+            "term": "plz plz",
+            "idf": 10.903497552486128
+          },
+          {
+            "term": "woa",
+            "idf": 10.903497552486128
+          }
+        ],
+        "lowest_idf": [
+          {
+            "term": "to",
+            "idf": 2.241442402436318
+          },
+          {
+            "term": "the",
+            "idf": 2.3133885278028674
+          },
+          {
+            "term": "my",
+            "idf": 2.727724819975154
+          },
+          {
+            "term": "and",
+            "idf": 2.761550690594059
+          },
+          {
+            "term": "it",
+            "idf": 2.796139001695998
+          },
+          {
+            "term": "not",
+            "idf": 2.803214716862797
+          },
+          {
+            "term": "you",
+            "idf": 2.882241372342131
+          },
+          {
+            "term": "is",
+            "idf": 2.953206631056287
+          }
+        ]
+      }
+    },
+    {
+      "accuracy": 0.7457457457457457,
+      "macro_f1": 0.7457202668400974,
+      "precision_neg": 0.7401960784313726,
+      "recall_neg": 0.7565130260521042,
+      "f1_neg": 0.7482656095143707,
+      "precision_pos": 0.7515337423312883,
+      "recall_pos": 0.735,
+      "f1_pos": 0.7431749241658241,
+      "support_neg": 998,
+      "support_pos": 1000,
+      "confusion_matrix": [
+        [
+          755,
+          243
+        ],
+        [
+          265,
+          735
+        ]
+      ],
+      "pipeline": "word2vec",
+      "description": "Mean-pooled skip-gram Word2Vec vectors",
+      "best_C": 0.1,
+      "val_macro_f1": 0.7407842293125114,
+      "vocab_size": 21836,
+      "oov_or_empty_test_tweets": 9
+    }
+  ],
+  "interpretations": {
+    "bow": {
+      "positive": [
+        {
+          "term": "not wait",
+          "weight": 1.8231462053069467
+        },
+        {
+          "term": "thanks",
+          "weight": 1.4594158738708103
+        },
+        {
+          "term": "welcome",
+          "weight": 1.4027004181275353
+        },
+        {
+          "term": "not bad",
+          "weight": 1.2937876951630563
+        },
+        {
+          "term": "cant wait",
+          "weight": 1.1942568162121798
+        },
+        {
+          "term": "happy",
+          "weight": 1.1891471474994992
+        },
+        {
+          "term": "awesome",
+          "weight": 1.1790958918973906
+        },
+        {
+          "term": "hehe",
+          "weight": 1.1763424787128671
+        },
+        {
+          "term": "glad",
+          "weight": 1.171069492479694
+        },
+        {
+          "term": "yay",
+          "weight": 1.151919140441567
+        },
+        {
+          "term": "smile",
+          "weight": 1.1255172326724663
+        },
+        {
+          "term": "excited",
+          "weight": 1.0689040617074972
+        }
+      ],
+      "negative": [
+        {
+          "term": "sad",
+          "weight": -2.6174672340090606
+        },
+        {
+          "term": "miss",
+          "weight": -1.98989989666751
+        },
+        {
+          "term": "poor",
+          "weight": -1.9507756694514615
+        },
+        {
+          "term": "sucks",
+          "weight": -1.8244835569855273
+        },
+        {
+          "term": "missing",
+          "weight": -1.72263886309572
+        },
+        {
+          "term": "sick",
+          "weight": -1.7035229884869916
+        },
+        {
+          "term": "hate",
+          "weight": -1.534867146228743
+        },
+        {
+          "term": "wish",
+          "weight": -1.4644904949419502
+        },
+        {
+          "term": "ugh",
+          "weight": -1.4082979015631298
+        },
+        {
+          "term": "hurts",
+          "weight": -1.394442629695943
+        },
+        {
+          "term": "sadly",
+          "weight": -1.3677925722806614
+        },
+        {
+          "term": "headache",
+          "weight": -1.3592063776871208
+        }
+      ]
+    },
+    "tf": {
+      "positive": [
+        {
+          "term": "not wait",
+          "weight": 9.45789475136659
+        },
+        {
+          "term": "not bad",
+          "weight": 7.665449322774124
+        },
+        {
+          "term": "cant wait",
+          "weight": 6.632549076969074
+        },
+        {
+          "term": "no problem",
+          "weight": 6.389378257767277
+        },
+        {
+          "term": "welcome",
+          "weight": 5.557671850674445
+        },
+        {
+          "term": "glad",
+          "weight": 5.539747355723651
+        },
+        {
+          "term": "hehe",
+          "weight": 5.344029318615467
+        },
+        {
+          "term": "not too",
+          "weight": 5.22164369393887
+        },
+        {
+          "term": "excited",
+          "weight": 5.20300372705678
+        },
+        {
+          "term": "smile",
+          "weight": 5.128816502449968
+        },
+        {
+          "term": "happy",
+          "weight": 4.963963394802598
+        },
+        {
+          "term": "why not",
+          "weight": 4.935121160467506
+        }
+      ],
+      "negative": [
+        {
+          "term": "sad",
+          "weight": -11.987451056884408
+        },
+        {
+          "term": "poor",
+          "weight": -8.39276224017456
+        },
+        {
+          "term": "sadly",
+          "weight": -7.67209314201391
+        },
+        {
+          "term": "miss",
+          "weight": -7.5039666934990485
+        },
+        {
+          "term": "sick",
+          "weight": -7.47170220238204
+        },
+        {
+          "term": "bummer",
+          "weight": -7.434718395452339
+        },
+        {
+          "term": "missing",
+          "weight": -7.332066798615962
+        },
+        {
+          "term": "sucks",
+          "weight": -7.271765714546881
+        },
+        {
+          "term": "died",
+          "weight": -6.999219515306621
+        },
+        {
+          "term": "not happy",
+          "weight": -6.83226200717779
+        },
+        {
+          "term": "gutted",
+          "weight": -6.699265800893704
+        },
+        {
+          "term": "disappointed",
+          "weight": -6.6803446606524
+        }
+      ]
+    },
+    "idf": {
+      "positive": [
+        {
+          "term": "not wait",
+          "weight": 6.432267074685258
+        },
+        {
+          "term": "thanks",
+          "weight": 4.958314883600991
+        },
+        {
+          "term": "happy",
+          "weight": 4.88988197593841
+        },
+        {
+          "term": "awesome",
+          "weight": 4.698025657318626
+        },
+        {
+          "term": "love",
+          "weight": 4.382868631194368
+        },
+        {
+          "term": "yay",
+          "weight": 4.332438790041837
+        },
+        {
+          "term": "glad",
+          "weight": 4.272826555253703
+        },
+        {
+          "term": "great",
+          "weight": 4.260794547484172
+        },
+        {
+          "term": "good",
+          "weight": 4.162503502033834
+        },
+        {
+          "term": "welcome",
+          "weight": 4.076927755436459
+        },
+        {
+          "term": "excited",
+          "weight": 4.00230015794269
+        },
+        {
+          "term": "hehe",
+          "weight": 3.88143429097838
+        }
+      ],
+      "negative": [
+        {
+          "term": "sad",
+          "weight": -11.653496467190052
+        },
+        {
+          "term": "miss",
+          "weight": -8.214704334594442
+        },
+        {
+          "term": "sick",
+          "weight": -6.863400740687089
+        },
+        {
+          "term": "not",
+          "weight": -6.714679543990504
+        },
+        {
+          "term": "poor",
+          "weight": -6.54330493673733
+        },
+        {
+          "term": "sucks",
+          "weight": -6.1599298862287
+        },
+        {
+          "term": "wish",
+          "weight": -6.027822484071488
+        },
+        {
+          "term": "hate",
+          "weight": -5.885873396714322
+        },
+        {
+          "term": "missing",
+          "weight": -5.782932944411617
+        },
+        {
+          "term": "no",
+          "weight": -4.976747529445072
+        },
+        {
+          "term": "ugh",
+          "weight": -4.91090957890757
+        },
+        {
+          "term": "bad",
+          "weight": -4.79741430765048
+        }
+      ]
+    },
+    "tfidf": {
+      "positive": [
+        {
+          "term": "not wait",
+          "weight": 6.4592319211229166
+        },
+        {
+          "term": "thanks",
+          "weight": 4.975116517523997
+        },
+        {
+          "term": "happy",
+          "weight": 4.924423245520476
+        },
+        {
+          "term": "awesome",
+          "weight": 4.715174920077685
+        },
+        {
+          "term": "glad",
+          "weight": 4.315484250720831
+        },
+        {
+          "term": "great",
+          "weight": 4.296275713570023
+        },
+        {
+          "term": "love",
+          "weight": 4.287417060557668
+        },
+        {
+          "term": "good",
+          "weight": 4.286701762288941
+        },
+        {
+          "term": "yay",
+          "weight": 4.273431708683556
+        },
+        {
+          "term": "welcome",
+          "weight": 4.109687084091825
+        },
+        {
+          "term": "excited",
+          "weight": 3.9998495007764787
+        },
+        {
+          "term": "nice",
+          "weight": 3.9226984840497945
+        }
+      ],
+      "negative": [
+        {
+          "term": "sad",
+          "weight": -11.449512562463303
+        },
+        {
+          "term": "miss",
+          "weight": -8.279789271203517
+        },
+        {
+          "term": "not",
+          "weight": -6.815637227345224
+        },
+        {
+          "term": "sick",
+          "weight": -6.8042906706377195
+        },
+        {
+          "term": "poor",
+          "weight": -6.529437476260722
+        },
+        {
+          "term": "sucks",
+          "weight": -6.130016148474687
+        },
+        {
+          "term": "wish",
+          "weight": -6.092333178372907
+        },
+        {
+          "term": "hate",
+          "weight": -5.859447594337463
+        },
+        {
+          "term": "missing",
+          "weight": -5.850461040211287
+        },
+        {
+          "term": "no",
+          "weight": -4.919046876580789
+        },
+        {
+          "term": "ugh",
+          "weight": -4.917469058186132
+        },
+        {
+          "term": "sorry",
+          "weight": -4.842865711127984
+        }
+      ]
+    },
+    "word2vec": {
+      "positive": [
+        {
+          "term": "followfriday",
+          "alignment": 0.30649411739662463
+        },
+        {
+          "term": "sharing",
+          "alignment": 0.2866303174038316
+        },
+        {
+          "term": "theme",
+          "alignment": 0.27888545757696515
+        },
+        {
+          "term": "retweet",
+          "alignment": 0.2774773831925587
+        },
+        {
+          "term": "congratulations",
+          "alignment": 0.2760740724823935
+        },
+        {
+          "term": "welcome",
+          "alignment": 0.26436295226188017
+        },
+        {
+          "term": "recommendation",
+          "alignment": 0.26225368724681825
+        },
+        {
+          "term": "thx",
+          "alignment": 0.26101818620781303
+        },
+        {
+          "term": "wonderful",
+          "alignment": 0.25902277839244015
+        },
+        {
+          "term": "reading",
+          "alignment": 0.2574180226413875
+        },
+        {
+          "term": "group",
+          "alignment": 0.2556893431015464
+        },
+        {
+          "term": "ff",
+          "alignment": 0.2523200314186095
+        }
+      ],
+      "negative": [
+        {
+          "term": "broke",
+          "alignment": -0.3533305825833588
+        },
+        {
+          "term": "stupid",
+          "alignment": -0.325474363014435
+        },
+        {
+          "term": "hurts",
+          "alignment": -0.3244612184518454
+        },
+        {
+          "term": "fml",
+          "alignment": -0.31462208904298583
+        },
+        {
+          "term": "sad",
+          "alignment": -0.3109505596309786
+        },
+        {
+          "term": "sucks",
+          "alignment": -0.3109138398190218
+        },
+        {
+          "term": "hate",
+          "alignment": -0.30382555112891463
+        },
+        {
+          "term": "ugh",
+          "alignment": -0.3031753827821892
+        },
+        {
+          "term": "hurt",
+          "alignment": -0.29083542431978615
+        },
+        {
+          "term": "arm",
+          "alignment": -0.2864199101895454
+        },
+        {
+          "term": "internet",
+          "alignment": -0.28158723004142483
+        },
+        {
+          "term": "killing",
+          "alignment": -0.2814100050947612
+        }
+      ]
+    }
+  },
+  "error_analysis": {
+    "best_pipeline": "idf",
+    "false_positives": [
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.9252492127425139,
+        "original": "typo .... Let's try again: Happy Sunday! Watching \"How the Earth Was Made\" ...Palio Indians",
+        "cleaned": "typo let s try again happy sunday watching how the earth was made palio indians"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.916245612421447,
+        "original": "Good night earthlings. Happy Mother's Day!  Its monday tommorrow & school",
+        "cleaned": "good night earthlings happy mother s day its monday tommorrow school"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.9058343049642962,
+        "original": "Hey @x17online and nooooow?   (X17Live live   http://ustre.am/39qb)",
+        "cleaned": "hey and nooooow x live live"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.9042401992125503,
+        "original": "@Vogelsong je viens de voir thanks ! #boulot",
+        "cleaned": "je viens de voir thanks boulot"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.9033943649824487,
+        "original": "Off to bed now. I sure hope I can get some sleep...",
+        "cleaned": "off to bed now i sure hope i can get some sleep"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.9011458261285308,
+        "original": "\"@jskaphobe Haha, awesome. The shower couldn't wait though. I changed the litter box as well, which ruined the lemon smell \"",
+        "cleaned": "haha awesome the shower could not wait though i changed the litter box as well which ruined the lemon smell"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.883329340576231,
+        "original": "@RCantiques @tomjudy Good Morning! sounds painful judy  Do you all notice anything that is selling better then other things",
+        "cleaned": "good morning sounds painful judy do you all notice anything that is selling better then other things"
+      },
+      {
+        "type": "false_positive",
+        "true_label": "negative",
+        "predicted_positive_probability": 0.8797963402582246,
+        "original": "http://twitpic.com/7q6x2 - Anybody Lol",
+        "cleaned": "anybody lol"
+      }
+    ],
+    "false_negatives": [
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.01569529830083565,
+        "original": "\"11:11 make a wish. wishing, wishing, wishing \"",
+        "cleaned": "make a wish wishing wishing wishing"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.017428083572753075,
+        "original": "Ahhhhh I want to go to rehab tomorrow to see tiesto! ive never even been there before and I dont have to work!!!",
+        "cleaned": "ahhhhh i want to go to rehab tomorrow to see tiesto ive never even been there before and i dont have to work"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.025041172540683308,
+        "original": "Leaving Tulsa so early makes me sad but I'll need some sleep! I get back home a noon!",
+        "cleaned": "leaving tulsa so early makes me sad but i will need some sleep i get back home a noon"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.031141002788658483,
+        "original": "I hate the heat.  It makes me sick...and ice melts too fast. Also:  Go Norway!",
+        "cleaned": "i hate the heat it makes me sick and ice melts too fast also go norway"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.04876566804405693,
+        "original": "@drewryanscott dammit drew-_-. U can't w a few days until I have my computer? *sigh* oh well.  3333",
+        "cleaned": "dammit drew u can not w a few days until i have my computer sigh oh well"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.06233493954725857,
+        "original": "I dont know whats the fuss about the missing plane. Everyone knows that it crashed on a mysterious LOST island",
+        "cleaned": "i dont know whats the fuss about the missing plane everyone knows that it crashed on a mysterious lost island"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.06673679940119281,
+        "original": "\"Had to change my password, I forgot, I'm old. \"",
+        "cleaned": "had to change my password i forgot i am old"
+      },
+      {
+        "type": "false_negative",
+        "true_label": "positive",
+        "predicted_positive_probability": 0.07211226452954533,
+        "original": "Where art thou @niokiaquino? I miss you!",
+        "cleaned": "where art thou i miss you"
+      }
+    ],
+    "tfidf_vs_word2vec": {
+      "a_correct_b_wrong_count": 213,
+      "b_correct_a_wrong_count": 102,
+      "examples": {
+        "a_correct_b_wrong": [
+          {
+            "true_label": "negative",
+            "original": "\"Pray for the families that lost loved ones today and the ones injured. 4 people died, 70 injured in the train collision in DC. \"",
+            "cleaned": "pray for the families that lost loved ones today and the ones injured people died injured in the train collision in dc"
+          },
+          {
+            "true_label": "positive",
+            "original": "\"Can't wait for June 11th, July 24th, and August 6th!!!!!  \"",
+            "cleaned": "can not wait for june th july th and august th"
+          },
+          {
+            "true_label": "negative",
+            "original": "@DonnieWahlberg Hey Ddub!! So sad I'm not there rockin with you Guys tonight! 3 more wks is tooooo long to wait!  See you in Cincy! Hugs",
+            "cleaned": "hey ddub so sad i am not there rockin with you guys tonight more wks is tooooo long to wait see you in cincy hugs"
+          },
+          {
+            "true_label": "negative",
+            "original": "Oh No!! good looking guy from Jeepers Creepers just got killed",
+            "cleaned": "oh no good looking guy from jeepers creepers just got killed"
+          },
+          {
+            "true_label": "negative",
+            "original": "Headed out of town for a few days. Will miss my girls",
+            "cleaned": "headed out of town for a few days will miss my girls"
+          }
+        ],
+        "b_correct_a_wrong": [
+          {
+            "true_label": "positive",
+            "original": "\"So tired aft carnival but went well.Charities seemed to be making lots of money  Arthur came 3rd for best puppy in the dog show, so proud.\"",
+            "cleaned": "so tired aft carnival but went well charities seemed to be making lots of money arthur came rd for best puppy in the dog show so proud"
+          },
+          {
+            "true_label": "positive",
+            "original": "\"@michellegreer I empathize with the going home to see a movie, but few art shows would get me off the couch  \"",
+            "cleaned": "i empathize with the going home to see a movie but few art shows would get me off the couch"
+          },
+          {
+            "true_label": "positive",
+            "original": "\"Second in line\" video online tuesday",
+            "cleaned": "second in line video online tuesday"
+          },
+          {
+            "true_label": "positive",
+            "original": "@502MS ok sir! i am just now figuring out this works. i think i do need to take the Twitter 101 class!",
+            "cleaned": "ok sir i am just now figuring out this works i think i do need to take the twitter class"
+          },
+          {
+            "true_label": "positive",
+            "original": "Researchers: Databases still beat Google's MapReduce data-crunching technology http://tr.im/j7Rd @bdouglas0 mire!  ahi le ense\u00ef\u00bf\u00bdo el paper",
+            "cleaned": "researchers databases still beat google s mapreduce data crunching technology mire ahi le ense o el paper"
+          }
+        ]
+      }
+    },
+    "bow_vs_tfidf": {
+      "a_correct_b_wrong_count": 30,
+      "b_correct_a_wrong_count": 35,
+      "examples": {
+        "a_correct_b_wrong": [
+          {
+            "true_label": "positive",
+            "original": "@timstwit leave??? ur going to school???",
+            "cleaned": "leave ur going to school"
+          },
+          {
+            "true_label": "positive",
+            "original": "@THELILPRINCE shaddup & stop lieing",
+            "cleaned": "shaddup stop lieing"
+          },
+          {
+            "true_label": "positive",
+            "original": "@crackbarbie This is my road kill http://twitpic.com/6m1q ..",
+            "cleaned": "this is my road kill"
+          },
+          {
+            "true_label": "positive",
+            "original": "I just got to drive this!  520hp Lamborghini Gallardo SE 6-Speed manual.  http://twitpic.com/6axih",
+            "cleaned": "i just got to drive this hp lamborghini gallardo se speed manual"
+          },
+          {
+            "true_label": "positive",
+            "original": "I'm really craving for pesto!  Can I break my diet for that one?",
+            "cleaned": "i am really craving for pesto can i break my diet for that one"
+          }
+        ],
+        "b_correct_a_wrong": [
+          {
+            "true_label": "positive",
+            "original": "@Jew_News  No problem - thought it seemed a couple weeks old",
+            "cleaned": "no problem thought it seemed a couple weeks old"
+          },
+          {
+            "true_label": "positive",
+            "original": "@McCainBlogette You're not alone in that belief",
+            "cleaned": "you are not alone in that belief"
+          },
+          {
+            "true_label": "positive",
+            "original": "sunny and hot and it's clouding up...ahh Florida in the rainy season...",
+            "cleaned": "sunny and hot and it s clouding up ahh florida in the rainy season"
+          },
+          {
+            "true_label": "positive",
+            "original": "DAMN IM IN SHOCK XDD cant believe it was amazing!  @osi_leto @ jared leto FINALLY U WERE TOGETHER!!",
+            "cleaned": "damn im in shock xdd cant believe it was amazing jared leto finally u were together"
+          },
+          {
+            "true_label": "positive",
+            "original": "\"@iamjersey how about coming back to the uk again, for your fans that love you dearly and weren't able to see you again?  haha. loveyoux\"",
+            "cleaned": "how about coming back to the uk again for your fans that love you dearly and were not able to see you again haha loveyoux"
+          }
+        ]
+      }
+    }
+  },
+  "elapsed_seconds": 64.5
+}
