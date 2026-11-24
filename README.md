@@ -26,18 +26,17 @@ The default run draws a stratified random sample of 50,000 tweets per class from
 
 ## Run
 
+Open `sentiment_analysis.ipynb`. That notebook is the project: data, preprocessing, vectorisation, models, tuning, pruning, and the comparison figures.
+
 ```bash
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-PYTHONHASHSEED=42 python run_sentiment.py
+python -m ipykernel install --sys-prefix --name sentiment-analysis --display-name "Python (Sentiment Analysis)"
+jupyter notebook sentiment_analysis.ipynb
 ```
 
-A 2,000-per-class check, which is not the reported experiment:
-
-```bash
-PYTHONHASHSEED=42 python run_sentiment.py --smoke --out results_smoke
-```
+In Cursor, select the kernel **Python (Sentiment Analysis)** and run all cells. The first run downloads the pretrained GloVe Twitter vectors.
 
 ## Outputs
 

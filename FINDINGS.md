@@ -86,4 +86,4 @@ TF-IDF is right and Word2Vec is wrong on 213 test tweets. The reverse happens on
 
 ## What to carry into the report
 
-State the sample size and the untouched test files. Report the table above, and say that BoW, TF, IDF, and TF-IDF are practically tied while mean-pooled embeddings are worse because they discard order and negation. Use `not bad` versus `not`, and one mixed tweet, as the error-analysis examples. Re-run with `PYTHONHASHSEED=42 python run_sentiment.py` to regenerate every number.
+State the sample size and the untouched test files. Report the table above, and say that BoW, TF, IDF, and TF-IDF are practically tied while mean-pooled embeddings are worse because they discard order and negation. Use `not bad` versus `not`, and one mixed tweet, as the error-analysis examples. Re-run `sentiment_analysis.ipynb` from the top to regenerate every number.
